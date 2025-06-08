@@ -1,5 +1,5 @@
 import unittest
-from main import home
+from app.main import home
 class TestBasico(unittest.TestCase):
     def test_dummy(self):
         self.assertEqual(2 + 2, 4)
