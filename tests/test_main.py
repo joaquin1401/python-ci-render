@@ -1,5 +1,5 @@
 import unittest
-import home from main # type: ignore
+import main
 
 class TestBasico(unittest.TestCase):
     def test_dummy(self):
@@ -7,4 +7,4 @@ class TestBasico(unittest.TestCase):
 
 class TestPrueba(unittest.TestCase):
     def test_dummy(self):
-        self.assertEqual(home.home(), "Hola, esta es una app desplegada con Render y CI")  
+        self.assertEqual(main.home(), "Hola, esta es una app desplegada con Render y CI")  
