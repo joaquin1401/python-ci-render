@@ -6,4 +6,4 @@ class TestBasico(unittest.TestCase):
 
 class TestPrueba(unittest.TestCase):
     def test_dummy(self):
-        self.assertEqual(home.home(), "Hola, esta es una app desplegada con Render y CI")  
+        self.assertEqual(home(), "Hola, esta es una app desplegada con Render y CI")  
