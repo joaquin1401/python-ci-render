@@ -31,3 +31,13 @@ jobs:
 
       - name: Ejecutar tests con pytest
         run: PYTHONPATH=. pytest
+
+      - name: Notificar a Slack si falla
+        if: failure()                  # Solo si algún paso anterior falla
+        uses: 8398a7/action-slack@v3   # Acción para Slack
+        with:
+          status: ${{ job.status }}    # Enviará 'failure'
+          fields: repo,commit,author,message
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Secreto seguro
+      
