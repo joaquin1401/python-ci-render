@@ -31,3 +31,44 @@ jobs:
 
       - name: Ejecutar tests con pytest
         run: PYTHONPATH=. pytest
+
+      - name: Notificar Slack FALLAS
+        if: failure() # Solo si falla alguna etapa previa
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          fields: repo,commit,author,message,eventName,ref
+          custom_payload: |
+            {
+              "attachments": [
+                {
+                  "color": "danger",
+                  "title": ":x: Build Failed!",
+                  "text": "El workflow falló en el repositorio *${{ github.repository }}*.\n\n*Commit:* ${{ github.event.head_commit.message }}\n*Autor:* ${{ github.actor }}\n*Branch:* ${{ github.ref }}\n*Evento:* ${{ github.event_name }}\nRevisa los detalles aquí: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  
+      
+      - name: Notificar Slack EXITO
+        if: success() # Solo si todos los pasos previos pasaron bien
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          fields: repo,commit,author,message,eventName,ref
+          custom_payload: |
+            {
+              "attachments": [
+                {
+                  "color": "good",
+                  "title": ":white_check_mark: Build Succeeded!",
+                  "text": "El workflow completó correctamente en el repositorio *${{ github.repository }}*.\n\n*Commit:* ${{ github.event.head_commit.message }}\n*Autor:* ${{ github.actor }}\n*Branch:* ${{ github.ref }}\n*Evento:* ${{ github.event_name }}\nPuedes ver el build aquí: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Secreto seguro
+        
