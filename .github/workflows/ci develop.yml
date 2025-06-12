@@ -7,9 +7,9 @@ on:
   # (minuto) (hora) (dia del mes) (mes) (dia de la semana)
   # El intervalo minimo de ejecución de los flujos de trabajo programados es de 5 minutos !!!!
   push:
-    branches: [main]
+    branches: [develop]
   pull_request:
-    branches: [main]
+    branches: [develop]
 
 jobs:
   test:
@@ -43,7 +43,7 @@ jobs:
               "attachments": [
                 {
                   "color": "danger",
-                  "title": ":x: Build FALLIDA!",
+                  "title": ":x: Build Fallida!",
                   "text": "El workflow falló en el repositorio *${{ github.repository }}*.\n\n*Commit:* ${{ github.event.head_commit.message }}\n*Autor:* ${{ github.actor }}\n*Branch:* ${{ github.ref }}\n*Evento:* ${{ github.event_name }}\nRevisa los detalles aquí: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                 }
               ]
@@ -62,7 +62,7 @@ jobs:
               "attachments": [
                 {
                   "color": "good",
-                  "title": ":white_check_mark: Build Exitosa!",
+                  "title": ":white_check_mark: Build exitosa!",
                   "text": "El workflow completó correctamente en el repositorio *${{ github.repository }}*.\n\n*Commit:* ${{ github.event.head_commit.message }}\n*Autor:* ${{ github.actor }}\n*Branch:* ${{ github.ref }}\n*Evento:* ${{ github.event_name }}\nPuedes ver el build aquí: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                 }
               ]
